@@ -29,5 +29,10 @@ namespace RealEstateAgency.API.Controllers
             Response.Headers.Add("x-total-count", count.ToString());
             return Json(_apartsServices.GetApartsAllServiсes(limit, page));
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateHouse(Aparts newApart)
+        {
+            return Json(_apartsServices.CreateApartServiсes(newApart));
+        }
     }
 }

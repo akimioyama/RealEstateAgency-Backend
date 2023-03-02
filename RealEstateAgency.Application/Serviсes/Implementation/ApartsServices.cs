@@ -21,9 +21,20 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             apartsSelects = new ApartsSelects();
         }
 
-        public bool CreateApartServiсes(Aparts nreApart)
+        public bool CreateApartServiсes(Aparts newApart)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if(apartsSelects.CreateApart(newApart))
+                {
+                    return true;
+                }
+                else { return false; }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool DeleteApartServiсes(int id)

@@ -15,6 +15,7 @@ namespace RealEstateAgency.EntityFramework
         
         public RealEstateAgencyContext()
         {
+            //Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -69,5 +69,14 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
         {
             throw new NotImplementedException();
         }
+        public int TotalPagesServiсes()
+        {
+            try
+            {
+                int count = apartsSelects.TotalPages();
+                return count;
+            }
+            catch { return 0; }
+        }
     }
 }

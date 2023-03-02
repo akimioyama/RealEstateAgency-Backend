@@ -25,6 +25,8 @@ namespace RealEstateAgency.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllAparts(int limit, int page)
         {
+            int count = _apartsServices.TotalPagesServiсes();
+            Response.Headers.Add("x-total-count", count.ToString());
             return Json(_apartsServices.GetApartsAllServiсes(limit, page));
         }
     }

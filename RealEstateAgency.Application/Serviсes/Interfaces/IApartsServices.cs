@@ -14,5 +14,6 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public bool CreateApartServiсes(Aparts nreApart);
         public bool UpdateApartServiсes(Aparts nreApart);
         public bool DeleteApartServiсes(int id);
+        public int TotalPagesServiсes();
     }
 }

@@ -14,5 +14,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public bool CreateApart(Aparts nreApart);
         public bool UpdateApart(Aparts nreApart);
         public bool DeleteApart(int id);
+        public int TotalPages();
     }
 }

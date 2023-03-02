@@ -51,5 +51,13 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             throw new NotImplementedException();
         }
+        public int TotalPages()
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                var count = db.Aparts.Count();
+                return count;
+            }
+        }
     }
 }

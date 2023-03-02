@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RealEstateAgency.Domain
 {
-    public class House
+    public class Aparts
     {
+        [Key]
+
         public int Id { get; set; }
         public string city { get; set; }
         public string street { get; set; }

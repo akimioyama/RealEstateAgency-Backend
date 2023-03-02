@@ -8,14 +8,13 @@ using RealEstateAgency.Domain;
 
 namespace RealEstateAgency.EntityFramework
 {
-    class RealEstateAgencyContext : DbContext
+    public class RealEstateAgencyContext : DbContext
     {
-        public DbSet<House> Houses { get; set; }
+        public DbSet<Aparts> Aparts { get; set; }
         public DbSet<Arendatels> Arendatels { get; set; }
         
         public RealEstateAgencyContext()
         {
-            Database.EnsureCreated();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -20,16 +20,12 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         public bool CreateApart(Aparts newApart)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
-            {
+            {   
                 try
                 {
-                    if(newApart.Id != 0)
-                    {
-                        db.Aparts.Add(newApart);
-                        db.SaveChanges();
-                        return true;
-                    }
-                    return false;
+                    db.Aparts.Add(newApart);
+                    db.SaveChanges();
+                    return true;
                 }
                 catch
                 {

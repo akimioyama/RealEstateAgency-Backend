@@ -34,5 +34,15 @@ namespace RealEstateAgency.API.Controllers
         {
             return Json(_apartsServices.CreateApartServiсes(newApart));
         }
+        [HttpDelete]
+        public async Task<IActionResult> DeleteHouse(int id)
+        {
+            return Json(_apartsServices.DeleteApartServiсes(id));
+        }
+        [HttpPatch]
+        public async Task<IActionResult> UpdateHouse(Aparts newApart)
+        {
+            return Json(_apartsServices.UpdateApartServiсes(newApart));
+        }
     }
 }

@@ -24,7 +24,8 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
         public bool CreateApartServiсes(Aparts newApart)
         {
             try
-            {
+            {   
+
                 if(apartsSelects.CreateApart(newApart))
                 {
                     return true;
@@ -39,7 +40,21 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
 
         public bool DeleteApartServiсes(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (apartsSelects.DeleteApart(id))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public Aparts GetApartByIdServices(int id)
@@ -76,9 +91,23 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             }
         }
 
-        public bool UpdateApartServiсes(Aparts nreApart)
+        public bool UpdateApartServiсes(Aparts newApart)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (apartsSelects.UpdateApart(newApart))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
         public int TotalPagesServiсes()
         {

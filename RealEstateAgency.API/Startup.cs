@@ -82,8 +82,20 @@ namespace RealEstateAgency.API
                     });
             });
 
-            services.AddTransient<IApartsServices, ApartsServices>(); 
-            
+            services.AddTransient<IApartsServices, ApartsServices>();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("http://localhost:3000");
+                    builder.WithOrigins("http://192.168.0.82:3000");
+                    builder.WithOrigins("http://192.168.0.82");
+                    builder.WithOrigins("http://172.20.10.2:3000");
+                    builder.AllowAnyHeader().WithExposedHeaders("*");
+                    builder.AllowAnyMethod();
+                    builder.AllowCredentials().WithExposedHeaders("Location");
+                }));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -99,6 +111,8 @@ namespace RealEstateAgency.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("CorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();

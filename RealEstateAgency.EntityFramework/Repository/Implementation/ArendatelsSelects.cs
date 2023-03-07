@@ -69,10 +69,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
 
         public bool UpdateArendatels(Arendatels arendatels)
         {
-            using(RealEstateAgencyContext db = new RealEstateAgencyContext())
-            {
-                
-            }
+            throw new NotImplementedException();
+
         }
     }
 }

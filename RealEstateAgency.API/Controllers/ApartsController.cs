@@ -17,7 +17,7 @@ namespace RealEstateAgency.API.Controllers
         {
             _apartsServices = apartsServices;
         }
-        [HttpGet("apart/{id}")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetApart(int id)
         {
             return Json(_apartsServices.GetApartByIdServices(id));

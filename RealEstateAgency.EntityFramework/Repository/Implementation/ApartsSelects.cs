@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Query;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.EntityFrameworkCore.Query;
 using RealEstateAgency.Domain;
+using RealEstateAgency.Domain.DTO;
 using RealEstateAgency.EntityFramework.Repository.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +14,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
 {
     public class ApartsSelects : IApartsSelects
     {
-        //private RealEstateAgencyContext db;
-        //public ApartsSelects()
-        //{
-        //    db = new RealEstateAgencyContext();
-        //}
-
         public bool CreateApart(Aparts newApart)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -128,5 +125,74 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 return count;
             }
         }
+        public List<string> GetStreetAll()
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                var result = db.Aparts.Select(a => a.street).Distinct().ToList();
+                return result;
+            }
+        }
+        public List<Aparts> GetApartsWthisFilters(int limit, int page, FilterDTO filter)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                int start = limit * (page - 1);
+                var filteredList = db.Aparts
+                    .Where(a => (filter.city == null || a.city == filter.city)
+                    && (filter.district == null || a.district == filter.district)
+                    && (filter.street == null || a.street == filter.street)
+                    && (filter.apart == null || filter.apart.Contains(a.apart))
+                    && (filter.price == null || a.price <= filter.price)
+                    && (filter.furniture == null || a.furniture == filter.furniture)
+                    && (filter.technic == null || a.technic == filter.technic)
+                    && (filter.evro_repair == null || a.evro_repair == filter.evro_repair)
+                    && (filter.animals == null || a.animals == filter.animals)
+                    && (filter.elevator == null || a.elevator == filter.elevator)
+                    && (filter.balcony == null || a.balcony == filter.balcony)
+                    && (filter.loggia == null || a.loggia == filter.loggia)
+                    && (filter.walls == null || a.walls == filter.walls)
+                    && (filter.floor == null || a.floor == filter.floor)
+                    && (filter.floors == null || a.floors == filter.floors)
+                    && (filter.new_building == null || a.new_building == filter.new_building)
+                    && (filter.type_of_house == null || filter.type_of_house.Contains(a.type_of_house))
+                    && (filter.bathroom_shower == null || a.bathroom_shower == filter.bathroom_shower)
+                    && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
+                    && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
+                    && (filter.lavatory == null || a.lavatory == filter.lavatory))
+                    .ToList().Skip(start).Take(limit).ToList();
+                return filteredList;
+            }
+        }
+        public int TotalPagesWhisFilter(FilterDTO filter)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                var filteredList = db.Aparts
+                   .Where(a => (filter.city == null || a.city == filter.city)
+                   && (filter.district == null || a.district == filter.district)
+                   && (filter.street == null || a.street == filter.street)
+                   && (filter.apart == null || filter.apart.Contains(a.apart))
+                   && (filter.price == null || a.price <= filter.price)
+                   && (filter.furniture == null || a.furniture == filter.furniture)
+                   && (filter.technic == null || a.technic == filter.technic)
+                   && (filter.evro_repair == null || a.evro_repair == filter.evro_repair)
+                   && (filter.animals == null || a.animals == filter.animals)
+                   && (filter.elevator == null || a.elevator == filter.elevator)
+                   && (filter.balcony == null || a.balcony == filter.balcony)
+                   && (filter.loggia == null || a.loggia == filter.loggia)
+                   && (filter.walls == null || a.walls == filter.walls)
+                   && (filter.floor == null || a.floor == filter.floor)
+                   && (filter.floors == null || a.floors == filter.floors)
+                   && (filter.new_building == null || a.new_building == filter.new_building)
+                   && (filter.type_of_house == null || filter.type_of_house.Contains(a.type_of_house))
+                   && (filter.bathroom_shower == null || a.bathroom_shower == filter.bathroom_shower)
+                   && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
+                   && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
+                   && (filter.lavatory == null || a.lavatory == filter.lavatory)).Count();
+                return filteredList;
+            }
+        }
+
     }
 }

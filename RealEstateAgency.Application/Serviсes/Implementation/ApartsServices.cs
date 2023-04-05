@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using RealEstateAgency.Application.Serviсes.Interfaces;
 using RealEstateAgency.Domain;
+using RealEstateAgency.Domain.DTO;
 using RealEstateAgency.EntityFramework.Repository.Implementation;
 using RealEstateAgency.EntityFramework.Repository.Interfaces;
 using System;
@@ -90,6 +91,22 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return null;
             }
         }
+        public List<Aparts> GetApartsWhisFiltersServices(int limit, int page, Domain.DTO.FilterDTO filter)
+        {
+            try
+            {
+                List<Aparts> apartsList = apartsSelects.GetApartsWthisFilters(limit, page, filter);
+                if( apartsList != null)
+                {
+                    return apartsList;
+                }
+                return null;
+            }
+            catch
+            {
+                return null;
+            }
+        }
 
         public bool UpdateApartServiсes(Aparts newApart)
         {
@@ -118,5 +135,27 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             }
             catch { return 0; }
         }
+        public int TotalPagesWhisFilterServiсes(FilterDTO filter)
+        {
+            try
+            {
+                int count = apartsSelects.TotalPagesWhisFilter(filter);
+                return count;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+        public List<string> GetStreetAllServices()
+        {
+            try
+            {
+                var result = apartsSelects.GetStreetAll();
+                return result;
+            }
+            catch { return null; }
+        }
+        
     }
 }

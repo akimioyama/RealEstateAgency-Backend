@@ -17,7 +17,7 @@ namespace RealEstateAgency.Domain
         public string street { get; set; }
         public string house { get; set; }
         public string apart { get; set;}
-        public string price { get; set; }
+        public int price { get; set; }
         public bool furniture { get; set; }
         public bool technic { get; set; }
         public bool evro_repair { get; set; }

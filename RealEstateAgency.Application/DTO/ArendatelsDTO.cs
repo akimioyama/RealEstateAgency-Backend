@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RealEstateAgency.Domain.DTO
+namespace RealEstateAgency.Application.DTO
 {
     public class ArendatelsDTO
     {

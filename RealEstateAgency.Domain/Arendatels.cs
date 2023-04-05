@@ -19,5 +19,6 @@ namespace RealEstateAgency.Domain
         public string login { get; set; }  
         public string password { get; set; }
         public string role { get; set; }
+        public bool status { get; set; }
     }
 }

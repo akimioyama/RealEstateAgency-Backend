@@ -17,22 +17,28 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 try
                 {
                     var user = db.Arendatels.FirstOrDefault(u => u.login == arendatels.login);
-                    if (user != null)
+                    if (user == null)
                     {
-                        user = db.Arendatels.FirstOrDefault(u => u.email == arendatels.email);
-                        if (user != null)
+                        var user1 = db.Arendatels.FirstOrDefault(u => u.email == arendatels.email);
+                        if (user1 == null)
                         {
+                            arendatels.id_arendatel = 0;
+                            arendatels.status = true;
+                            arendatels.role = "user";
+
                             db.Arendatels.Add(arendatels);
                             db.SaveChanges();
                             return "Добавили";
                         }
-                        return "Почта занята";
+                        else
+                            return "Почта занята";
                     }
-                    return "Логин занят";
+                    else
+                        return "Логин занят";
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return null;
+                    return ex.InnerException.Message;
                 }
             }
         }
@@ -46,7 +52,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                     var arendatels = db.Arendatels.FirstOrDefault(u => u.id_arendatel == id);
                     if(arendatels != null)
                     {
-                        db.Arendatels.Remove(arendatels);
+                        arendatels.status = false;
                         db.SaveChanges(); 
                         return true;
                     }
@@ -62,9 +68,35 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             }
         }
 
-        public Arendatels GetArendatels(string login, string password)
+        public List<Arendatels> GetAllArendatels()
         {
             throw new NotImplementedException();
+        }
+
+        public Arendatels GetArendatels(string login, string password)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var user = db.Arendatels.FirstOrDefault(u => u.login == login);
+                    if (user != null)
+                    {
+                        if (BCrypt.Net.BCrypt.Verify(password, user.password))
+                            return user;
+                        else
+                            return null;
+                            
+                    }
+                    else
+                        return null;
+
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
 
         public bool UpdateArendatels(Arendatels arendatels)

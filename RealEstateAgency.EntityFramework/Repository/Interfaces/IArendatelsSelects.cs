@@ -1,4 +1,5 @@
 ﻿using RealEstateAgency.Domain;
+using RealEstateAgency.Domain.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public bool UpdateArendatels(Arendatels arendatels);
         public bool DeleteArendatels(int id);
         public Arendatels GetArendatels(string login, string password);
+        public List<Arendatels> GetAllArendatels();
 
     }
 }

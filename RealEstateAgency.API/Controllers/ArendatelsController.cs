@@ -29,19 +29,17 @@ namespace RealEstateAgency.API.Controllers
             string result = _arendatelsService.CreateUserServices(arendatelsDTO);
             return Ok(result);
         }
-        
-        //[HttpPost("login")]
-        //public async Task<IActionResult> LoginUser(ArendatelsDTO arendatelsDTO)
-        //{
-        //    //if (arendatels.login != arendatelsDTO.login)
-        //    //{
-        //    //    return BadRequest("User not found");
-        //    //}
-        //    //if (!BCrypt.Net.BCrypt.Verify(arendatelsDTO.password, arendatels.password))
-        //    //{
-        //    //    return BadRequest("Wrong password");
-        //    //}
-        //    //return Ok(arendatels);
-        //}
+        [HttpGet]
+        public async Task<IActionResult> GetInfoById()
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization") 
+                ? Request.Headers["authorization"] 
+                : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+            var result = _arendatelsService.GetArendatelByJWTServices(jwt);
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest();
+        }
     }
 }

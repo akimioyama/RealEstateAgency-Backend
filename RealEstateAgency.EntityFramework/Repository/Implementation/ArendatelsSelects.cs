@@ -22,13 +22,19 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                         var user1 = db.Arendatels.FirstOrDefault(u => u.email == arendatels.email);
                         if (user1 == null)
                         {
-                            arendatels.id_arendatel = 0;
-                            arendatels.status = true;
-                            arendatels.role = "user";
+                            var user2 = db.Arendatels.FirstOrDefault(u => u.telefon == arendatels.telefon);
+                            if (user2 == null)
+                            {
+                                arendatels.id_arendatel = 0;
+                                arendatels.status = true;
+                                arendatels.role = "user";
 
-                            db.Arendatels.Add(arendatels);
-                            db.SaveChanges();
-                            return "Добавили";
+                                db.Arendatels.Add(arendatels);
+                                db.SaveChanges();
+                                return "Добавили";
+                            }
+                            else
+                                return "Телефон занят";
                         }
                         else
                             return "Почта занята";
@@ -103,6 +109,24 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             throw new NotImplementedException();
 
+        }
+        public Arendatels GetArendatelsById(int id)
+        {
+            using(RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var user = db.Arendatels.FirstOrDefault(u => u.id_arendatel == id);
+                    if (user != null)
+                        return user;
+                    else
+                        return null;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
         }
     }
 }

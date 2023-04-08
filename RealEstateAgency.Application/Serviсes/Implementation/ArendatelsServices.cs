@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace RealEstateAgency.Application.Serviсes.Implementation
 {
@@ -47,6 +49,21 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
         public Arendatels GetArendatelsByLoginAndPassword(string login, string password)
         {
             return arendatelsSelects.GetArendatels(login, password);
+        }
+        public Arendatels GetArendatelByJWTServices(string jwt)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = (JwtSecurityToken)jsonToken;
+
+            int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                        Select(claim => claim.Value).FirstOrDefault());
+
+            var result = arendatelsSelects.GetArendatelsById(userId);
+            if (result != null)
+                return result;
+            else
+                return null;
         }
     }
 }

@@ -16,6 +16,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public bool DeleteArendatels(int id);
         public Arendatels GetArendatels(string login, string password);
         public List<Arendatels> GetAllArendatels();
+        public Arendatels GetArendatelsById(int id);
 
     }
 }

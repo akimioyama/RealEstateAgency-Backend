@@ -55,7 +55,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-
         public Aparts GetApartById(int id)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -64,7 +63,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 return apart;
             }
         }
-
         public List<Aparts> GetApartsAll(int limit, int page)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -75,7 +73,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 return aparts;
             }
         }
-
         public bool UpdateApart(Aparts newApart)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())

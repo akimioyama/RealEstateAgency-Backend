@@ -14,7 +14,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public List<Aparts> GetApartsAllServiсes(int limit, int page);
         public List<Aparts> GetApartsWhisFiltersServices(int limit, int page, FilterDTO filter);
         public List<string> GetStreetAllServices();
-        public bool CreateApartServiсes(Aparts newApart);
+        public string CreateApartServiсes(Aparts newApart);
         public bool UpdateApartServiсes(Aparts newApart);
         public bool DeleteApartServiсes(int id);
         public int TotalPagesServiсes();

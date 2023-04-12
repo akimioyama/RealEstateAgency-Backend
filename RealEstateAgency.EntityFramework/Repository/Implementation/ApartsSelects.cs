@@ -14,19 +14,22 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
 {
     public class ApartsSelects : IApartsSelects
     {
-        public bool CreateApart(Aparts newApart)
+        public string CreateApart(Aparts apartsRecord)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {   
                 try
                 {
-                    db.Aparts.Add(newApart);
+                    apartsRecord.id = 0;
+                    apartsRecord.id_arendatel = 1;
+                    db.Aparts.Add(apartsRecord);
                     db.SaveChanges();
-                    return true;
+
+                    return "add";
                 }
-                catch
+                catch (Exception ex)
                 {
-                    return false;
+                    return ex.Message;
                 }
             }
         }
@@ -37,7 +40,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 try
                 {
-                    Aparts apart = db.Aparts.FirstOrDefault(p => p.Id == id);
+                    Aparts apart = db.Aparts.FirstOrDefault(p => p.id == id);
                     if (apart != null)
                     {
                         db.Aparts.Remove(apart);
@@ -57,7 +60,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
-                var apart = db.Aparts.Where(p => p.Id == id).FirstOrDefault();
+                var apart = db.Aparts.Where(p => p.id == id).FirstOrDefault();
                 return apart;
             }
         }
@@ -79,7 +82,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 try
                 {
-                    Aparts aparts = db.Aparts.FirstOrDefault(p => p.Id == newApart.Id);
+                    Aparts aparts = db.Aparts.FirstOrDefault(p => p.id == newApart.id);
                     if (aparts != null)
                     {
                         aparts.city = newApart.city;

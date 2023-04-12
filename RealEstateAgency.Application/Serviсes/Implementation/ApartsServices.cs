@@ -22,20 +22,20 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             apartsSelects = new ApartsSelects();
         }
 
-        public bool CreateApartServiсes(Aparts newApart)
+        public string CreateApartServiсes(Aparts newApart)
         {
             try
             {   
 
-                if(apartsSelects.CreateApart(newApart))
+                if(apartsSelects.CreateApart(newApart) != "-1")
                 {
-                    return true;
+                    return apartsSelects.CreateApart(newApart);
                 }
-                else { return false; }
+                else { return "-1"; }
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return ex.InnerException.ToString();
             }
         }
 

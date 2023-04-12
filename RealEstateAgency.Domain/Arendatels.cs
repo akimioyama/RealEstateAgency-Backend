@@ -11,7 +11,6 @@ namespace RealEstateAgency.Domain
     public class Arendatels
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id_arendatel { get; set; }
         public string FIO { get; set; }
         public string telefon { get; set; }

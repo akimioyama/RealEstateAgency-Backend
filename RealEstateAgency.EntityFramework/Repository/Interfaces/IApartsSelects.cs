@@ -13,7 +13,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public Aparts GetApartById(int id);
         public List<Aparts> GetApartsAll(int limit, int page);
         public List<string> GetStreetAll();
-        public bool CreateApart(Aparts newApart);
+        public string CreateApart(Aparts newApart);
         public bool UpdateApart(Aparts newApart);
         public bool DeleteApart(int id);
         public int TotalPages();

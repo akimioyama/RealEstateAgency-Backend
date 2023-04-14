@@ -105,9 +105,41 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             }
         }
 
-        public bool UpdateArendatels(Arendatels arendatels)
+        public string UpdateArendatels(Arendatels arendatels)
         {
-            throw new NotImplementedException();
+            using(RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var user = db.Arendatels.FirstOrDefault(u => u.email == arendatels.email 
+                    && u.id_arendatel != arendatels.id_arendatel);
+                    if (user == null)
+                    {
+                        var user1 = db.Arendatels.FirstOrDefault(u => u.telefon == arendatels.telefon
+                        && u.id_arendatel != arendatels.id_arendatel);
+                        if (user1 == null)
+                        {
+                            Arendatels arendatelsMain = db.Arendatels.FirstOrDefault(u =>
+                            u.id_arendatel == arendatels.id_arendatel);
+                            arendatelsMain.FIO = arendatels.FIO;
+                            arendatelsMain.telefon = arendatels.telefon;
+                            arendatelsMain.email = arendatels.email;
+
+                            db.SaveChanges();
+
+                            return "Изменили";
+                        }
+                        else
+                            return "Телефон занят";
+                    }
+                    else
+                        return "Почта занята";
+                }
+                catch (Exception ex)
+                {
+                    return ex.InnerException.ToString();
+                }
+            }
 
         }
         public Arendatels GetArendatelsById(int id)

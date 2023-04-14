@@ -13,7 +13,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public string CreateUserServices(ArendatelsDTO arendatels);
         public Arendatels GetArendatelsByLoginAndPassword(string login, string password);
         public bool DeleteuserServices(int id);
-        public bool ChangeUserServices(ArendatelsDTO arendatels, int userId);
+        public string ChangeUserServices(ArendatelsDTO arendatels, string jwt);
         public List<ArendatelsDTO> GetArendatelsServices();
         public Arendatels GetArendatelByJWTServices(string jwt);
 

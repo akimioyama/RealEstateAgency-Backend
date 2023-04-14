@@ -41,5 +41,19 @@ namespace RealEstateAgency.API.Controllers
             else
                 return BadRequest();
         }
+        [HttpPut]
+        public async Task<IActionResult> ChangeUser(ArendatelsDTO arendatelsDTO)
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization")
+                ? Request.Headers["authorization"]
+                : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            var result = _arendatelsService.ChangeUserServices(arendatelsDTO, jwt);
+
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest();
+        }
     }
 }

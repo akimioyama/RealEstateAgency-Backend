@@ -40,7 +40,11 @@ namespace RealEstateAgency.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateHouse(Aparts newApart)
         {
-            return Json(_apartsServices.CreateApartServiсes(newApart));
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+            
+            return Json(_apartsServices.CreateApartServiсes(newApart, jwt));
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteHouse(int id)

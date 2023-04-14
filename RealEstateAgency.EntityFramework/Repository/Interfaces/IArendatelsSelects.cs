@@ -12,7 +12,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
     public interface IArendatelsSelects
     {
         public string CreateArendatels(Arendatels arendatels);
-        public bool UpdateArendatels(Arendatels arendatels);
+        public string UpdateArendatels(Arendatels arendatels);
         public bool DeleteArendatels(int id);
         public Arendatels GetArendatels(string login, string password);
         public List<Arendatels> GetAllArendatels();

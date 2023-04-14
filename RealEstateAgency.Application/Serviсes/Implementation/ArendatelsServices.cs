@@ -20,9 +20,26 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
         {
             arendatelsSelects = new ArendatelsSelects();
         }
-        public bool ChangeUserServices(ArendatelsDTO arendatels, int userId)
+        public string ChangeUserServices(ArendatelsDTO arendatelsDTO, string jwt)
         {
-            throw new NotImplementedException();
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = (JwtSecurityToken)jsonToken;
+
+            int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                        Select(claim => claim.Value).FirstOrDefault());
+
+            var newArendatel = new Arendatels()
+            {
+                id_arendatel = userId,
+                FIO = arendatelsDTO.FIO,
+                telefon = arendatelsDTO.telepon,
+                email = arendatelsDTO.email,
+                password = arendatelsDTO.password,
+            };
+            var result = arendatelsSelects.UpdateArendatels(newArendatel);
+            return result;
+
         }
 
         public string CreateUserServices(ArendatelsDTO arendatels)

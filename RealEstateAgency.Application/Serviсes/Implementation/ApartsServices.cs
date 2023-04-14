@@ -6,7 +6,9 @@ using RealEstateAgency.EntityFramework.Repository.Implementation;
 using RealEstateAgency.EntityFramework.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,8 +24,16 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             apartsSelects = new ApartsSelects();
         }
 
-        public string CreateApartServiсes(Aparts newApart)
+        public string CreateApartServiсes(Aparts newApart, string jwt)
         {
+            var handler = new JwtSecurityTokenHandler();
+            var jsonToken = handler.ReadToken(jwt);
+            var tokenS = (JwtSecurityToken)jsonToken;
+
+            int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                        Select(claim => claim.Value).FirstOrDefault());
+
+            newApart.id_arendatel = userId;
             try
             {   
                 var result = apartsSelects.CreateApart(newApart);

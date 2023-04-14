@@ -6,7 +6,7 @@ using System;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace RealEstateAgency.API.Controllers
 {
@@ -24,8 +24,8 @@ namespace RealEstateAgency.API.Controllers
         {
             return File(name, "image/jpeg");
         }
-        [HttpPost("{id_user}")]
-        public async Task<IActionResult> Upload(IFormFile[] files, int id_user)
+        [HttpPost("{id_apart}")]
+        public async Task<IActionResult> Upload(IFormFile[] files, int id_apart)
         {
             if (files == null || files.Length == 0)
             {
@@ -39,7 +39,7 @@ namespace RealEstateAgency.API.Controllers
                     continue;
                 }
                 i++;
-                string fileName = Path.GetFileName("item" + id_user + "_" + i + ".jpg" );
+                string fileName = Path.GetFileName("item" + id_apart + "_" + i + ".jpg" );
                 string filePath = Path.Combine(_hostEnvironment.ContentRootPath, "wwwroot", fileName);
                 using (var stream = new FileStream(filePath, FileMode.Create))
                 {
@@ -48,5 +48,6 @@ namespace RealEstateAgency.API.Controllers
             }
             return Ok($"Files uploaded successfully: {string.Join(",", files.Select(f => f.FileName))}");
         }
+        
     }
 }

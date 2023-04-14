@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Controllers\ApartsController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
@@ -15,10 +19,6 @@
     <ProjectReference Include="..\RealEstateAgency.Application\RealEstateAgency.Application.csproj" />
     <ProjectReference Include="..\RealEstateAgency.Common\RealEstateAgency.Common.csproj" />
     <ProjectReference Include="..\RealEstateAgency.Domain\RealEstateAgency.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

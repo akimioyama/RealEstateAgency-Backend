@@ -26,12 +26,13 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
         {
             try
             {   
-
-                if(apartsSelects.CreateApart(newApart) != "-1")
+                var result = apartsSelects.CreateApart(newApart);
+                if (result != "-1")
                 {
-                    return apartsSelects.CreateApart(newApart);
+                    return result.ToString();
                 }
-                else { return "-1"; }
+                else
+                    return "-1";
             }
             catch (Exception ex)
             {

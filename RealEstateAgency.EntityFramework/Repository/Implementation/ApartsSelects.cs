@@ -21,15 +21,14 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 try
                 {
                     apartsRecord.id = 0;
-                    apartsRecord.id_arendatel = 1;
                     db.Aparts.Add(apartsRecord);
                     db.SaveChanges();
 
-                    return "add";
+                    return apartsRecord.id.ToString();
                 }
                 catch (Exception ex)
                 {
-                    return ex.Message;
+                    return "-1";
                 }
             }
         }

@@ -34,5 +34,6 @@ namespace RealEstateAgency.Domain.DTO
         public bool for_rent { get; set; }
         public string count_pic { get; set; }
         public string text { get; set; }
+        public string metrov { get; set; }
     }
 }

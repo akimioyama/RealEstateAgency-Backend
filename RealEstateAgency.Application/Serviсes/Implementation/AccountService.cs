@@ -56,7 +56,8 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 {
                     JWTToken = encodedJwt,
                     Role = arendatels.role,
-                    FIO = arendatels.FIO
+                    FIO = arendatels.FIO,
+                    id = arendatels.id_arendatel
                 };
                 return result;
             }

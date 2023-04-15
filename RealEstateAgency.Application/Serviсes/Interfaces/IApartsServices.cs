@@ -19,5 +19,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public bool DeleteApartServiсes(int id);
         public int TotalPagesServiсes();
         public int TotalPagesWhisFilterServiсes(FilterDTO filter);
+        public List<Aparts> GetAllApartsByUserIdServices(string jwt);
+        public string ChangeForRentServices(int id, string jwt);
     }
 }

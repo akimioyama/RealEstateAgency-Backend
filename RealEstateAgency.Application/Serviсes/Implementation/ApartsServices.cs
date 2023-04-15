@@ -167,6 +167,43 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             }
             catch { return null; }
         }
-        
+        public List<Aparts> GetAllApartsByUserIdServices(string jwt)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(jwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                            Select(claim => claim.Value).FirstOrDefault());
+
+                var result = apartsSelects.GetAparrtsByUserId(userId);
+                return result;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public string ChangeForRentServices(int id, string jwt)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(jwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                            Select(claim => claim.Value).FirstOrDefault());
+
+                var result = apartsSelects.ChangeForRent(id, userId);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
     }
 }

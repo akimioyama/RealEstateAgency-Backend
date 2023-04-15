@@ -43,8 +43,26 @@ namespace RealEstateAgency.API.Controllers
             string jwt = (Request.Headers.ContainsKey("authorization")
                ? Request.Headers["authorization"]
                : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
-            
+
             return Json(_apartsServices.CreateApartServiсes(newApart, jwt));
+        }
+        [HttpGet("byid")]
+        public async Task<IActionResult> GetAllApartsByUserId()
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            return Json(_apartsServices.GetAllApartsByUserIdServices(jwt));
+        }
+        [HttpPut("forrent/{id}")]
+        public async Task<IActionResult> ChangeForRent(int id)
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            return Json(_apartsServices.ChangeForRentServices(id, jwt));
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteHouse(int id)

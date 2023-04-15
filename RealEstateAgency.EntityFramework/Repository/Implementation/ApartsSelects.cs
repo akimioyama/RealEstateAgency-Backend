@@ -107,6 +107,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                         aparts.for_rent = newApart.for_rent;
                         aparts.count_pic = newApart.count_pic;
                         aparts.text = newApart.text;
+                        
 
                         db.SaveChanges();
                         return true;
@@ -158,7 +159,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                     && (filter.bathroom_shower == null || a.bathroom_shower == filter.bathroom_shower)
                     && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                     && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
-                    && (filter.lavatory == null || a.lavatory == filter.lavatory))
+                    && (filter.lavatory == null || a.lavatory == filter.lavatory)
+                    && (filter.metrov == null || a.metrov == filter.metrov))
                     .ToList().Skip(start).Take(limit).ToList();
                 return filteredList;
             }
@@ -188,10 +190,49 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                    && (filter.bathroom_shower == null || a.bathroom_shower == filter.bathroom_shower)
                    && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                    && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
-                   && (filter.lavatory == null || a.lavatory == filter.lavatory)).Count();
+                   && (filter.lavatory == null || a.lavatory == filter.lavatory)
+                   && (filter.metrov == null || a.metrov == filter.metrov)).Count();
                 return filteredList;
             }
         }
+        public List<Aparts> GetAparrtsByUserId(int id)
+        {
+            using(RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                var aparts = db.Aparts.Where(a => a.id_arendatel == id);
+                return aparts.ToList();
+            }
+        }
+        public string ChangeForRent(int id, int id_arend)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var apart = db.Aparts.FirstOrDefault(a => a.id == id);
+                    if (apart != null)
+                    {
+                        if (apart.id_arendatel == id_arend)
+                        {
+                            if (apart.for_rent == true)
+                                apart.for_rent = false;
+                            else
+                                apart.for_rent = true;
 
+                            db.SaveChanges();
+                            return "Изменили";
+                        }
+                        else
+                            return "Разные id_arendatels";
+                    }
+                    else
+                        return "Нет такой квартиры";
+                }
+                catch (Exception ex)
+                {
+                    return ex.InnerException.ToString();
+                }
+            }
+        }
     }
 }

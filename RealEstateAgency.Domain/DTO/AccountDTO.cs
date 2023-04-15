@@ -10,6 +10,7 @@ namespace RealEstateAgency.Domain.DTO
     {
         public string JWTToken { get; set; }
         public string Role { get; set; }
-        public string FIO { get; set; }
+        public string FIO { get; set; }         
+        public int id { get; set; }
     }
 }

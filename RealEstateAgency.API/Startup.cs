@@ -85,6 +85,8 @@ namespace RealEstateAgency.API
             services.AddTransient<IApartsServices, ApartsServices>();
             services.AddTransient<IArendatelsServices, ArendatelsServices>();
             services.AddTransient<IAccountService, AccountService>();
+            services.AddTransient<IAdminServices, AdminServices>();
+            services.AddTransient<IRequestServices, RequestServices>();
 
             services.AddCors(options => options.AddPolicy("CorsPolicy",
                 builder =>

@@ -12,7 +12,10 @@ namespace RealEstateAgency.EntityFramework
     {
         public DbSet<Aparts> Aparts { get; set; }
         public DbSet<Arendatels> Arendatels { get; set; }
-        
+        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Request> Request { get; set; }
+
+
         public RealEstateAgencyContext()
         {
             //Database.EnsureDeleted();

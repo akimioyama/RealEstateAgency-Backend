@@ -102,7 +102,7 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return null;
             }
         }
-        public List<Aparts> GetApartsWhisFiltersServices(int limit, int page, Domain.DTO.FilterDTO filter)
+        public List<Aparts> GetApartsWhisFiltersServices(int limit, int page, FilterDTO filter)
         {
             try
             {
@@ -119,22 +119,35 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             }
         }
 
-        public bool UpdateApartServiсes(Aparts newApart)
+        public string UpdateApartServiсes(ChangeApartDTO changeApartDTO, string jwt)
         {
             try
             {
-                if (apartsSelects.UpdateApart(newApart))
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(jwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                            Select(claim => claim.Value).FirstOrDefault());
+
+
+                var newApart = new Aparts()
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                    id = changeApartDTO.id,
+                    price = changeApartDTO.price,
+                    furniture = changeApartDTO.furniture,
+                    technic = changeApartDTO.technic,
+                    evro_repair = changeApartDTO.evro_repair,
+                    animals = changeApartDTO.animals,
+                    elevator = changeApartDTO.elevator,
+                    walls = changeApartDTO.walls,
+                    text = changeApartDTO.text
+                };
+                return apartsSelects.UpdateApart(newApart, userId);
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return ex.InnerException.ToString();
             }
         }
         public int TotalPagesServiсes()

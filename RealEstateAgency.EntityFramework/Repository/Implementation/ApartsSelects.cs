@@ -32,7 +32,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-
         public bool DeleteApart(int id)
         {
             using(RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -72,49 +71,34 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 return aparts;
             }
         }
-        public bool UpdateApart(Aparts newApart)
+        public string UpdateApart(Aparts newApart, int id_arendatel)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
                 try
                 {
-                    Aparts aparts = db.Aparts.FirstOrDefault(p => p.id == newApart.id);
+                    var aparts = db.Aparts.FirstOrDefault(p => p.id == newApart.id && p.id_arendatel == id_arendatel);
                     if (aparts != null)
                     {
-                        aparts.city = newApart.city;
-                        aparts.street = newApart.street;
-                        aparts.house = newApart.house;
-                        aparts.apart = newApart.apart;
                         aparts.price = newApart.price;
                         aparts.furniture = newApart.furniture;
                         aparts.technic = newApart.technic;
                         aparts.evro_repair = newApart.evro_repair;
                         aparts.animals = newApart.animals;
                         aparts.elevator = newApart.elevator;
-                        aparts.loggia = newApart.loggia;
-                        aparts.balcony = newApart.balcony;
                         aparts.walls = newApart.walls;
-                        aparts.floor = newApart.floor;
-                        aparts.floors = newApart.floors;
-                        aparts.new_building = newApart.new_building;
-                        aparts.type_of_house = newApart.type_of_house;
-                        aparts.bathroom_shower = newApart.bathroom_shower;
-                        aparts.kitchen_stove = newApart.kitchen_stove;
-                        aparts.ceiling_height = newApart.ceiling_height;
-                        aparts.lavatory = newApart.lavatory;
-                        //aparts.id_arendatel = newApart.id_arendatel;
-                        aparts.district = newApart.district;
-                        aparts.for_rent = newApart.for_rent;
-                        aparts.count_pic = newApart.count_pic;
                         aparts.text = newApart.text;
                         
 
                         db.SaveChanges();
-                        return true;
+                        return "Изменили";
                     }
-                    else { return false; } 
+                    else { return "Нет такой квартиры/не верный id_arendatel"; } 
                 }
-                catch { return false; }
+                catch (Exception ex) 
+                {
+                    return ex.InnerException.ToString();
+                }
             }
         }
         public int TotalPages()

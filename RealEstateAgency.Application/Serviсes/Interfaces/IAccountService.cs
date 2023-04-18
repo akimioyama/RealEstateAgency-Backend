@@ -11,6 +11,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
     public interface IAccountService
     {
         public AccountDTO GetJWTToken(LoginDTO loginDTO);
+        public AccountDTO GetJwtAdmin(LoginDTO loginDTO);
 
     }
 }

@@ -55,24 +55,29 @@ namespace RealEstateAgency.API.Controllers
 
             return Json(_apartsServices.GetAllApartsByUserIdServices(jwt));
         }
-        [HttpPut("forrent/{id}")]
-        public async Task<IActionResult> ChangeForRent(int id)
+        [HttpGet("q/{id_apart}")]
+        public async Task<IActionResult> ChangeForRent(int id_apart)
         {
             string jwt = (Request.Headers.ContainsKey("authorization")
                ? Request.Headers["authorization"]
                : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
 
-            return Json(_apartsServices.ChangeForRentServices(id, jwt));
+            return Json(_apartsServices.ChangeForRentServices(id_apart, jwt));
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteHouse(int id)
         {
             return Json(_apartsServices.DeleteApartServiсes(id));
         }
-        [HttpPatch]
-        public async Task<IActionResult> UpdateHouse(Aparts newApart)
+        [HttpPut]
+        public async Task<IActionResult> UpdateHouse(ChangeApartDTO changeApartDTO)
         {
-            return Json(_apartsServices.UpdateApartServiсes(newApart));
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            var result = _apartsServices.UpdateApartServiсes(changeApartDTO, jwt);
+            return Ok(result);
         }
         [HttpGet("allStreet")]
         public async Task<IActionResult> GetAllStreet()

@@ -15,7 +15,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public List<Aparts> GetAparrtsByUserId(int id);
         public List<string> GetStreetAll();
         public string CreateApart(Aparts newApart);
-        public bool UpdateApart(Aparts newApart);
+        public string UpdateApart(Aparts newApart, int id_arendatel);
         public bool DeleteApart(int id);
         public int TotalPages();
         public int TotalPagesWhisFilter(FilterDTO filter);

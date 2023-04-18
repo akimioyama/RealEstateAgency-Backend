@@ -24,5 +24,14 @@ namespace RealEstateAgency.API.Controllers
             else
                 return BadRequest();
         }
+        [HttpPost("loginadmin")]
+        public async Task<IActionResult> LoginAdmin(LoginDTO loginDTO)
+        {
+            AccountDTO result = _accountService.GetJwtAdmin(loginDTO);
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest();
+        }
     }
 }

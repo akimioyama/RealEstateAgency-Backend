@@ -48,7 +48,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-
         public bool DeleteArendatels(int id)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -73,12 +72,10 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-
         public List<Arendatels> GetAllArendatels()
         {
             throw new NotImplementedException();
         }
-
         public Arendatels GetArendatels(string login, string password)
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
@@ -104,7 +101,6 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-
         public string UpdateArendatels(Arendatels arendatels)
         {
             using(RealEstateAgencyContext db = new RealEstateAgencyContext())

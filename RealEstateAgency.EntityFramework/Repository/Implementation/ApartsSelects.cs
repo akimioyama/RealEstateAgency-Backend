@@ -67,7 +67,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 int start = limit * (page - 1);
 
-                var aparts = db.Aparts.Skip(start).Take(limit).ToList();
+                var aparts = db.Aparts.Where(a => a.for_rent == true).Skip(start).Take(limit).ToList();
                 return aparts;
             }
         }
@@ -105,7 +105,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
-                var count = db.Aparts.Count();
+                var count = db.Aparts.Where(c => c.for_rent == true).Count();
                 return count;
             }
         }
@@ -144,7 +144,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                     && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                     && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
                     && (filter.lavatory == null || a.lavatory == filter.lavatory)
-                    && (filter.metrov == null || a.metrov == filter.metrov))
+                    && (filter.metrov == null || a.metrov == filter.metrov)
+                    && a.for_rent == true)
                     .ToList().Skip(start).Take(limit).ToList();
                 return filteredList;
             }
@@ -175,7 +176,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                    && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                    && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
                    && (filter.lavatory == null || a.lavatory == filter.lavatory)
-                   && (filter.metrov == null || a.metrov == filter.metrov)).Count();
+                   && (filter.metrov == null || a.metrov == filter.metrov)
+                   && a.for_rent == true).Count();
                 return filteredList;
             }
         }

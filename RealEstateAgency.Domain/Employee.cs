@@ -13,5 +13,6 @@ namespace RealEstateAgency.Domain
         public string password { get; set; }
         public string role { get; set; }
         public string FIO { get; set; }
+        public bool dele { get; set; }
     }
 }

@@ -29,7 +29,7 @@ namespace RealEstateAgency.Domain.DTO
         public string? kitchen_stove { get; set; }
         public string? ceiling_height { get; set; }
         public string? lavatory { get; set; }
-        public string? metrov { get; set; }
+        public double? metrov { get; set; }
 
     }
 }

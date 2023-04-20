@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using RealEstateAgency.Application.Serviсes.Interfaces;
 using RealEstateAgency.Domain;
 using RealEstateAgency.Domain.DTO;
@@ -50,18 +51,21 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             }
         }
 
-        public bool DeleteApartServiсes(int id)
+        public bool DeleteApartServiсes(int id, string jwt)
         {
             try
             {
-                if (apartsSelects.DeleteApart(id))
-                {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(jwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                int userId = Convert.ToInt32(tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultNameClaimType).
+                            Select(claim => claim.Value).FirstOrDefault());
+
+                if (apartsSelects.DeleteApart(id, userId))
                     return true;
-                }
                 else
-                {
                     return false;
-                }
             }
             catch
             {

@@ -82,5 +82,16 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             else
                 return null;
         }
+        public Arendatels GetArendatelByIDServices(int id)
+        {
+            var result = arendatelsSelects.GetArendatelsById(id);
+            if (result != null)
+            {
+                result.password = null;
+                return result;
+            }
+            else
+                return null;
+        }
     }
 }

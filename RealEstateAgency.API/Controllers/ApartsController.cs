@@ -64,10 +64,14 @@ namespace RealEstateAgency.API.Controllers
 
             return Json(_apartsServices.ChangeForRentServices(id_apart, jwt));
         }
-        [HttpDelete]
+        [HttpDelete("del/{id}")]
         public async Task<IActionResult> DeleteHouse(int id)
         {
-            return Json(_apartsServices.DeleteApartServiсes(id));
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            return Json(_apartsServices.DeleteApartServiсes(id, jwt));
         }
         [HttpPut]
         public async Task<IActionResult> UpdateHouse(ChangeApartDTO changeApartDTO)

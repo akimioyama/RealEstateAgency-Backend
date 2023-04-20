@@ -41,6 +41,15 @@ namespace RealEstateAgency.API.Controllers
             else
                 return BadRequest();
         }
+        [HttpGet("q/{id}")]
+        public async Task<IActionResult> GetInfoById(int id)
+        {
+            var result = _arendatelsService.GetArendatelByIDServices(id);
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest();
+        }
         [HttpPut]
         public async Task<IActionResult> ChangeUser(ArendatelsDTO arendatelsDTO)
         {

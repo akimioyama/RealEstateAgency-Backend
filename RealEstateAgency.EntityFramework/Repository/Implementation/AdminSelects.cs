@@ -16,7 +16,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 try
                 {
-                    var employee = db.Employee.FirstOrDefault(u => u.login == login);
+                    var employee = db.Employee.FirstOrDefault(u => u.login == login && u.dele == false);
                     if (employee != null)
                     {
                         if (BCrypt.Net.BCrypt.Verify(password, employee.password))
@@ -56,7 +56,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 try
                 {
-                    var result = db.Employee.FirstOrDefault(e => e.id == id);
+                    var result = db.Employee.FirstOrDefault(e => e.id == id && e.dele == false);
                     if (result != null)
                         return result;
                     else return null;

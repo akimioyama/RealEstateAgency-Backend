@@ -20,6 +20,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {   
                 try
                 {
+                    apartsRecord.dele = false;
                     apartsRecord.id = 0;
                     db.Aparts.Add(apartsRecord);
                     db.SaveChanges();
@@ -32,16 +33,16 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
-        public bool DeleteApart(int id)
+        public bool DeleteApart(int id, int id_arend)
         {
             using(RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
                 try
                 {
-                    Aparts apart = db.Aparts.FirstOrDefault(p => p.id == id);
+                    Aparts apart = db.Aparts.FirstOrDefault(p => p.id == id && p.dele == false && p.id_arendatel == id_arend);
                     if (apart != null)
                     {
-                        db.Aparts.Remove(apart);
+                        apart.dele = true;
                         db.SaveChanges();
                         return true;
                     }
@@ -67,7 +68,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 int start = limit * (page - 1);
 
-                var aparts = db.Aparts.Where(a => a.for_rent == true).Skip(start).Take(limit).ToList();
+                var aparts = db.Aparts.Where(a => a.for_rent == true && a.dele == false).Skip(start).Take(limit).ToList();
                 return aparts;
             }
         }
@@ -105,7 +106,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
-                var count = db.Aparts.Where(c => c.for_rent == true).Count();
+                var count = db.Aparts.Where(c => c.for_rent == true && c.dele == false).Count();
                 return count;
             }
         }
@@ -122,6 +123,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
                 int start = limit * (page - 1);
+
+
                 var filteredList = db.Aparts
                     .Where(a => (filter.city == null || a.city == filter.city)
                     && (filter.district == null || a.district == filter.district)
@@ -144,8 +147,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                     && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                     && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
                     && (filter.lavatory == null || a.lavatory == filter.lavatory)
-                    && (filter.metrov == null || a.metrov == filter.metrov)
-                    && a.for_rent == true)
+                    && (filter.metrov == null || a.metrov >= filter.metrov)
+                    && a.for_rent == true && a.dele == false)
                     .ToList().Skip(start).Take(limit).ToList();
                 return filteredList;
             }
@@ -176,8 +179,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                    && (filter.kitchen_stove == null || a.kitchen_stove == filter.kitchen_stove)
                    && (filter.ceiling_height == null || a.ceiling_height == filter.ceiling_height)
                    && (filter.lavatory == null || a.lavatory == filter.lavatory)
-                   && (filter.metrov == null || a.metrov == filter.metrov)
-                   && a.for_rent == true).Count();
+                   && (filter.metrov == null || a.metrov >= filter.metrov)
+                   && a.for_rent == true && a.dele == false).Count();
                 return filteredList;
             }
         }
@@ -185,7 +188,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             using(RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
-                var aparts = db.Aparts.Where(a => a.id_arendatel == id);
+                var aparts = db.Aparts.Where(a => a.id_arendatel == id && a.dele == false);
                 return aparts.ToList();
             }
         }
@@ -195,7 +198,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
             {
                 try
                 {
-                    var apart = db.Aparts.FirstOrDefault(a => a.id == id);
+                    var apart = db.Aparts.FirstOrDefault(a => a.id == id && a.dele == false);
                     if (apart != null)
                     {
                         if (apart.id_arendatel == id_arend)

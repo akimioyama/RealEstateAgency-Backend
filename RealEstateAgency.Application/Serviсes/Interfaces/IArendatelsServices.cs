@@ -16,6 +16,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public string ChangeUserServices(ArendatelsDTO arendatels, string jwt);
         public List<ArendatelsDTO> GetArendatelsServices();
         public Arendatels GetArendatelByJWTServices(string jwt);
+        public Arendatels GetArendatelByIDServices(int id);
 
     }
 }

@@ -16,7 +16,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public List<string> GetStreetAllServices();
         public string CreateApartServiсes(Aparts newApart, string jwt);
         public string UpdateApartServiсes(ChangeApartDTO changeApartDTO, string jwt);
-        public bool DeleteApartServiсes(int id);
+        public bool DeleteApartServiсes(int id, string jwt);
         public int TotalPagesServiсes();
         public int TotalPagesWhisFilterServiсes(FilterDTO filter);
         public List<Aparts> GetAllApartsByUserIdServices(string jwt);

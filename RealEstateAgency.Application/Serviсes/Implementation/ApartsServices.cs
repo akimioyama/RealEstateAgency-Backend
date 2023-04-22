@@ -24,7 +24,6 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             _configuration = conf;
             apartsSelects = new ApartsSelects();
         }
-
         public string CreateApartServiсes(Aparts newApart, string jwt)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -50,7 +49,6 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return ex.InnerException.ToString();
             }
         }
-
         public bool DeleteApartServiсes(int id, string jwt)
         {
             try
@@ -72,7 +70,6 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return false;
             }
         }
-
         public Aparts GetApartByIdServices(int id)
         {
             try
@@ -89,7 +86,6 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return null;
             }
         }
-
         public List<Aparts> GetApartsAllServiсes(int limit, int page)
         {
             try
@@ -122,7 +118,6 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
                 return null;
             }
         }
-
         public string UpdateApartServiсes(ChangeApartDTO changeApartDTO, string jwt)
         {
             try
@@ -220,6 +215,59 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
             catch (Exception ex)
             {
                 return ex.Message;
+            }
+        }
+        public bool DeleteAparAdmintServiсes(int id, string Adminjwt)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(Adminjwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                string userRole = tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultRoleClaimType)
+                    .Select(claim => claim.Value).FirstOrDefault();
+
+                if (userRole == "admin")
+                    return apartsSelects.DeleteApart(id);
+                else return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+        public string UpdateApartAdminServiсes(ChangeApartDTO changeApartDTO, string Adminjwt)
+        {
+            try
+            {
+                var handler = new JwtSecurityTokenHandler();
+                var jsonToken = handler.ReadToken(Adminjwt);
+                var tokenS = (JwtSecurityToken)jsonToken;
+
+                string userRole = tokenS.Claims.Where(c => c.Type == ClaimsIdentity.DefaultRoleClaimType)
+                    .Select(claim => claim.Value).FirstOrDefault();
+
+                var newApart = new Aparts()
+                {
+                    id = changeApartDTO.id,
+                    price = changeApartDTO.price,
+                    furniture = changeApartDTO.furniture,
+                    technic = changeApartDTO.technic,
+                    evro_repair = changeApartDTO.evro_repair,
+                    animals = changeApartDTO.animals,
+                    elevator = changeApartDTO.elevator,
+                    walls = changeApartDTO.walls,
+                    text = changeApartDTO.text
+                };
+
+                if (userRole == "admin")
+                    return apartsSelects.UpdateApart(newApart);
+                else return "Error";
+            }
+            catch (Exception ex)
+            {
+                return ex.InnerException.ToString();
             }
         }
     }

@@ -38,5 +38,17 @@ namespace RealEstateAgency.Application.Serviсes.Implementation
 
             return adminSelects.GetEmployeeById(userId);
         }
+        public List<Employee> GetEmployeeListServuces()
+        {
+            return adminSelects.GetEmployeeList();
+        }
+        public string DeleteEmployeeServices(int id)
+        {
+            return adminSelects.DeleteEmployee(id);
+        }
+        public string ChangeEmployeeServices(Employee employee)
+        {
+            return adminSelects.ChangeEmployee(employee);
+        }
     }
 }

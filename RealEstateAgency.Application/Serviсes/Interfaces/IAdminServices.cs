@@ -12,5 +12,8 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public Employee GetEmployeeByLoginAndPassword(string login, string password);
         public string CreateEm(Employee employee);
         public Employee GetEmployeeById(string jwt);
+        public List<Employee> GetEmployeeListServuces();
+        public string DeleteEmployeeServices(int id);
+        public string ChangeEmployeeServices(Employee employee);
     }
 }

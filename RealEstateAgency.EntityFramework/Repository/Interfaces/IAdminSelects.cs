@@ -12,5 +12,8 @@ namespace RealEstateAgency.EntityFramework.Repository.Interfaces
         public Employee GetEmployee(string login, string password);
         public Employee GetEmployeeById(int id);
         public string CreateEmployee(Employee employee);
+        public List<Employee> GetEmployeeList();
+        public string DeleteEmployee(int id);
+        public string ChangeEmployee(Employee employee);
     }
 }

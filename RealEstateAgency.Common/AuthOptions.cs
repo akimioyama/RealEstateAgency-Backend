@@ -12,7 +12,7 @@ namespace RealEstateAgency.Common
         public const string ISSUER = "MyAuthServer";
         public const string AUDIENCE = "MyAuthClient";
         const string KEY = "myarsgdgdfge_134";
-        public const int LIFETIME = 5;
+        public const int LIFETIME = 50;
         public static SymmetricSecurityKey GetSymmetricSecurityKey()
         {
             return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));

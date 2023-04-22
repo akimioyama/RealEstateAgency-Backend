@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RealEstateAgency.Application.DTO;
 using RealEstateAgency.Application.Serviсes.Interfaces;
@@ -38,6 +39,38 @@ namespace RealEstateAgency.API.Controllers
                 return Ok(result);
             else return BadRequest(result);
         }
+        [Authorize(Roles = "admin")]
+        [HttpGet("/all")]
+        public async Task<IActionResult> GetEmplList()
+        {
+            var result = _adminServices.GetEmployeeListServuces();
+            if (result != null)
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+        //[Authorize(Roles = "admin")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeEmp(Employee employee)
+        {
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(employee.password);
+            employee.password = passwordHash;
 
+            var result = _adminServices.ChangeEmployeeServices(employee);
+            if (result == "Change")
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
+        [HttpDelete]
+        public async Task<IActionResult> DelEmp(int id)
+        {
+            var result = _adminServices.DeleteEmployeeServices(id);
+            
+            if (result == "Delete")
+                return Ok(result);
+            else
+                return BadRequest(result);
+        }
     }
 }

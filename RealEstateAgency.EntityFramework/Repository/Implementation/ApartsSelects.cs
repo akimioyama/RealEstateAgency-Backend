@@ -58,7 +58,7 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
         {
             using (RealEstateAgencyContext db = new RealEstateAgencyContext())
             {
-                var apart = db.Aparts.Where(p => p.id == id).FirstOrDefault();
+                var apart = db.Aparts.Where(p => p.id == id && p.dele == false).FirstOrDefault();
                 return apart;
             }
         }
@@ -220,6 +220,58 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 catch (Exception ex)
                 {
                     return ex.InnerException.ToString();
+                }
+            }
+        }
+        public string UpdateApart(Aparts newApart)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var aparts = db.Aparts.FirstOrDefault(a => a.id == newApart.id);
+                    if (aparts != null)
+                    {
+                        aparts.price = newApart.price;
+                        aparts.furniture = newApart.furniture;
+                        aparts.technic = newApart.technic;
+                        aparts.evro_repair = newApart.evro_repair;
+                        aparts.animals = newApart.animals;
+                        aparts.elevator = newApart.elevator;
+                        aparts.walls = newApart.walls;
+                        aparts.text = newApart.text;
+
+
+                        db.SaveChanges();
+                        return "Изменили";
+                    }
+                    else { return "Нет такой квартиры"; }
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
+        }
+        public bool DeleteApart(int id)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var apart = db.Aparts.FirstOrDefault(a => a.id == id);
+                    if (apart != null)
+                    {
+                        apart.dele = true;
+                        db.SaveChanges();
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+                catch
+                {
+                    return false;
                 }
             }
         }

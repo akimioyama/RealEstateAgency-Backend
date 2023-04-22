@@ -21,5 +21,7 @@ namespace RealEstateAgency.Application.Serviсes.Interfaces
         public int TotalPagesWhisFilterServiсes(FilterDTO filter);
         public List<Aparts> GetAllApartsByUserIdServices(string jwt);
         public string ChangeForRentServices(int id, string jwt);
+        public string UpdateApartAdminServiсes(ChangeApartDTO changeApartDTO, string Adminjwt);
+        public bool DeleteAparAdmintServiсes(int id, string Adminjwt);
     }
 }

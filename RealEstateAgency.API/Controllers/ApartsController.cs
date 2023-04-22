@@ -88,5 +88,24 @@ namespace RealEstateAgency.API.Controllers
         {
             return Json(_apartsServices.GetStreetAllServices());
         }
+        [HttpDelete("admin/del/{id}")]
+        public async Task<IActionResult> DeleteHouseAdmin(int id)
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            return Json(_apartsServices.DeleteAparAdmintServiсes(id, jwt));
+        }
+        [HttpPut("admin/put")]
+        public async Task<IActionResult> UpdateHouseAdmin(ChangeApartDTO changeApartDTO)
+        {
+            string jwt = (Request.Headers.ContainsKey("authorization")
+               ? Request.Headers["authorization"]
+               : Request.Headers["Authorization"]).ToString().Replace("Bearer ", "");
+
+            var result = _apartsServices.UpdateApartAdminServiсes(changeApartDTO, jwt);
+            return Ok(result);
+        }
     }
 }

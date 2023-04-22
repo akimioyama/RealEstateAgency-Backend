@@ -67,5 +67,69 @@ namespace RealEstateAgency.EntityFramework.Repository.Implementation
                 }
             }
         }
+        public List<Employee> GetEmployeeList()
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var result = db.Employee.Where(e => e.dele == false).Distinct().ToList();
+                    if (result != null)
+                        return result;
+                    else return null;
+                }
+                catch
+                {
+                    return null;
+                }
+            }
+        }
+        public string DeleteEmployee(int id)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var emloyee = db.Employee.FirstOrDefault(e => e.id == id);
+                    if (emloyee != null)
+                    {
+                        emloyee.dele = true;
+
+                        db.SaveChanges();
+                        return "Delete";
+                    }
+                    else
+                        return "Nan";
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
+        }
+        public string ChangeEmployee(Employee employee)
+        {
+            using (RealEstateAgencyContext db = new RealEstateAgencyContext())
+            {
+                try
+                {
+                    var result = db.Employee.FirstOrDefault(e => e.id == employee.id);
+                    if (result != null)
+                    {
+                        result.FIO = employee.FIO;
+                        result.role = employee.role;
+                        result.password = employee.password;
+
+                        db.SaveChanges();
+                        return "Change";
+                    }
+                    else return "Nan";
+                }
+                catch (Exception ex)
+                {
+                    return ex.Message;
+                }
+            }
+        }
     }
 }
